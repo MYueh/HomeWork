@@ -13,11 +13,18 @@ namespace HWork1.Controllers
     public class 客戶資料Controller : Controller
     {
         private CusEntities db = new CusEntities();
-
+       
         // GET: 客戶資料
         public ActionResult Index()
         {
             return View(db.客戶資料.ToList());
+        }
+
+        // 報表List
+        public ActionResult CustomerList()
+        {
+            var query = db.V_CUSLIST.OrderBy(x => x.CID).AsQueryable();
+            return View(query);
         }
 
         // GET: 客戶資料/Details/5

@@ -11,17 +11,26 @@ namespace HWork1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class V_CUSLIST
     {
+        [Display(Name="客戶ID")]
         public int CID { get; set; }
+        [Display(Name="客戶名稱")]
         public string CNAME { get; set; }
+
         public string CNO { get; set; }
         public string CMAIL { get; set; }
         public string CTEL { get; set; }
         public string CFAX { get; set; }
         public string CADD { get; set; }
+
+        [Display(Name="聯絡人數")]
         public Nullable<int> CR { get; set; }
+        [Display(Name="銀行帳戶數")]
         public Nullable<int> BR { get; set; }
+
     }
 }

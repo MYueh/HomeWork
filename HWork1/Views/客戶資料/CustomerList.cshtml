@@ -1,0 +1,42 @@
+﻿@model IEnumerable<HWork1.Models.V_CUSLIST>
+
+@{
+    ViewBag.Title = "CustomerList";
+}
+
+<h2>CustomerList</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CNAME)
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.CR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BR)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CNAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BR)
+        </td>
+        <td>            
+            @Html.ActionLink("客戶資料", "Details", new { id=item.CID }) |    
+            @Html.ActionLink("Back", "Index")
+        </td>
+    </tr>
+}
+
+</table>
