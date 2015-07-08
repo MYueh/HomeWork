@@ -53,6 +53,20 @@
         </EntityType>
         <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 '客戶資料.MDF.dbo.V_CUSLIST' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="V_CUSLIST">
+          <Key>
+            <PropertyRef Name="CID" />
+          </Key>
+          <Property Name="CID" Type="int" Nullable="false" />
+          <Property Name="CNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CNO" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="CMAIL" Type="nvarchar" MaxLength="250" />
+          <Property Name="CTEL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CFAX" Type="nvarchar" MaxLength="50" />
+          <Property Name="CADD" Type="nvarchar" MaxLength="100" />
+          <Property Name="CR" Type="int" />
+          <Property Name="BR" Type="int" />
+        </EntityType>
         <Association Name="FK_客戶銀行資訊_客戶資料">
           <End Role="客戶資料" Type="Self.客戶資料" Multiplicity="1" />
           <End Role="客戶銀行資訊" Type="Self.客戶銀行資訊" Multiplicity="*" />
@@ -82,6 +96,19 @@
           <EntitySet Name="客戶資料" EntityType="Self.客戶資料" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="客戶銀行資訊" EntityType="Self.客戶銀行資訊" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="客戶聯絡人" EntityType="Self.客戶聯絡人" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_CUSLIST" EntityType="Self.V_CUSLIST" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_CUSLIST].[CID] AS [CID], 
+    [V_CUSLIST].[CNAME] AS [CNAME], 
+    [V_CUSLIST].[CNO] AS [CNO], 
+    [V_CUSLIST].[CMAIL] AS [CMAIL], 
+    [V_CUSLIST].[CTEL] AS [CTEL], 
+    [V_CUSLIST].[CFAX] AS [CFAX], 
+    [V_CUSLIST].[CADD] AS [CADD], 
+    [V_CUSLIST].[CR] AS [CR], 
+    [V_CUSLIST].[BR] AS [BR]
+    FROM [dbo].[V_CUSLIST] AS [V_CUSLIST]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_客戶銀行資訊_客戶資料" Association="Self.FK_客戶銀行資訊_客戶資料">
             <End Role="客戶資料" EntitySet="客戶資料" />
             <End Role="客戶銀行資訊" EntitySet="客戶銀行資訊" />
@@ -182,7 +209,22 @@
             <End Role="客戶資料" EntitySet="客戶資料" />
             <End Role="客戶聯絡人" EntitySet="客戶聯絡人" />
           </AssociationSet>
+          <EntitySet Name="V_CUSLIST" EntityType="客戶資料.MDFModel.V_CUSLIST" />
         </EntityContainer>
+        <EntityType Name="V_CUSLIST">
+          <Key>
+            <PropertyRef Name="CID" />
+          </Key>
+          <Property Name="CID" Type="Int32" Nullable="false" />
+          <Property Name="CNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CNO" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="CMAIL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CTEL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CFAX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CADD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CR" Type="Int32" />
+          <Property Name="BR" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -236,6 +278,21 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="手機" ColumnName="手機" />
                 <ScalarProperty Name="電話" ColumnName="電話" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_CUSLIST">
+            <EntityTypeMapping TypeName="客戶資料.MDFModel.V_CUSLIST">
+              <MappingFragment StoreEntitySet="V_CUSLIST">
+                <ScalarProperty Name="BR" ColumnName="BR" />
+                <ScalarProperty Name="CR" ColumnName="CR" />
+                <ScalarProperty Name="CADD" ColumnName="CADD" />
+                <ScalarProperty Name="CFAX" ColumnName="CFAX" />
+                <ScalarProperty Name="CTEL" ColumnName="CTEL" />
+                <ScalarProperty Name="CMAIL" ColumnName="CMAIL" />
+                <ScalarProperty Name="CNO" ColumnName="CNO" />
+                <ScalarProperty Name="CNAME" ColumnName="CNAME" />
+                <ScalarProperty Name="CID" ColumnName="CID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
