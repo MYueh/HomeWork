@@ -11,24 +11,34 @@ namespace HWork1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class 客戶資料
     {
         public 客戶資料()
         {
-            this.客戶銀行資訊 = new HashSet<客戶銀行資訊>();
             this.客戶聯絡人 = new HashSet<客戶聯絡人>();
+            this.客戶銀行資訊 = new HashSet<客戶銀行資訊>();
         }
     
         public int Id { get; set; }
+
+        [Required]
         public string 客戶名稱 { get; set; }
+        [Required(ErrorMessage="統一編號長度為8碼!")]
+        [StringLength(8), MinLength(8)]
         public string 統一編號 { get; set; }
+        [Required]
         public string 電話 { get; set; }
+        [Required]
         public string 傳真 { get; set; }
+        [Required]
         public string 地址 { get; set; }
+        [Required]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Email輸入格式有誤!!")]
         public string Email { get; set; }
     
-        public virtual ICollection<客戶銀行資訊> 客戶銀行資訊 { get; set; }
         public virtual ICollection<客戶聯絡人> 客戶聯絡人 { get; set; }
+        public virtual ICollection<客戶銀行資訊> 客戶銀行資訊 { get; set; }
     }
 }

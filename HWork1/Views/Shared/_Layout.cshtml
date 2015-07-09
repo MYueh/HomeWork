@@ -25,6 +25,16 @@
                     <li>@Html.ActionLink("首頁", "Index", "Home")</li>
                     <li>@Html.ActionLink("關於", "About", "Home")</li>
                     <li>@Html.ActionLink("連絡方式", "Contact", "Home")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            客戶資料<i class="fade fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu">
+                            <li><a href="@Url.Action("Index","客戶資料")"><i class="glyphicon glyphicon-cog"></i>客戶基本資料</a></li>
+                            <li><a href="@Url.Action("Index","客戶聯絡人")"><i class="glyphicon glyphicon-earphone"></i>客戶聯絡人</a></li>
+                            <li><a href="@Url.Action("Index","客戶銀行資訊")"><i class="glyphicon glyphicon-piggy-bank"></i>客戶銀行資訊</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

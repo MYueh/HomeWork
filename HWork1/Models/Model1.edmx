@@ -34,8 +34,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="客戶Id" Type="int" Nullable="false" />
           <Property Name="銀行名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="銀行代碼" Type="int" Nullable="false" />
-          <Property Name="分行代碼" Type="int" />
+          <Property Name="銀行代碼" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="分行代碼" Type="nvarchar" MaxLength="4" Nullable="false" />
           <Property Name="帳戶名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="帳戶號碼" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
@@ -56,6 +56,9 @@
         <EntityType Name="V_CUSLIST">
           <Key>
             <PropertyRef Name="CID" />
+            
+            
+            
           </Key>
           <Property Name="CID" Type="int" Nullable="false" />
           <Property Name="CNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -143,21 +146,8 @@
           <Property Name="傳真" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="地址" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="客戶銀行資訊" Relationship="Self.FK_客戶銀行資訊_客戶資料" FromRole="客戶資料" ToRole="客戶銀行資訊" />
           <NavigationProperty Name="客戶聯絡人" Relationship="Self.FK_客戶聯絡人_客戶資料" FromRole="客戶資料" ToRole="客戶聯絡人" />
-        </EntityType>
-        <EntityType Name="客戶銀行資訊">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="客戶Id" Type="Int32" Nullable="false" />
-          <Property Name="銀行名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="銀行代碼" Type="Int32" Nullable="false" />
-          <Property Name="分行代碼" Type="Int32" />
-          <Property Name="帳戶名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="帳戶號碼" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="客戶資料" Relationship="Self.FK_客戶銀行資訊_客戶資料" FromRole="客戶銀行資訊" ToRole="客戶資料" />
+          <NavigationProperty Name="客戶銀行資訊" Relationship="客戶資料.MDFModel.FK_客戶銀行資訊_客戶資料" FromRole="客戶資料" ToRole="客戶銀行資訊" />
         </EntityType>
         <EntityType Name="客戶聯絡人">
           <Key>
@@ -172,18 +162,6 @@
           <Property Name="電話" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="客戶資料" Relationship="Self.FK_客戶聯絡人_客戶資料" FromRole="客戶聯絡人" ToRole="客戶資料" />
         </EntityType>
-        <Association Name="FK_客戶銀行資訊_客戶資料">
-          <End Role="客戶資料" Type="Self.客戶資料" Multiplicity="1" />
-          <End Role="客戶銀行資訊" Type="Self.客戶銀行資訊" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="客戶資料">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="客戶銀行資訊">
-              <PropertyRef Name="客戶Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_客戶聯絡人_客戶資料">
           <End Role="客戶資料" Type="Self.客戶資料" Multiplicity="1" />
           <End Role="客戶聯絡人" Type="Self.客戶聯絡人" Multiplicity="*" />
@@ -199,17 +177,17 @@
         <EntityContainer Name="CusEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="客戶資料" EntityType="Self.客戶資料" />
-          <EntitySet Name="客戶銀行資訊" EntityType="Self.客戶銀行資訊" />
           <EntitySet Name="客戶聯絡人" EntityType="Self.客戶聯絡人" />
-          <AssociationSet Name="FK_客戶銀行資訊_客戶資料" Association="Self.FK_客戶銀行資訊_客戶資料">
-            <End Role="客戶資料" EntitySet="客戶資料" />
-            <End Role="客戶銀行資訊" EntitySet="客戶銀行資訊" />
-          </AssociationSet>
           <AssociationSet Name="FK_客戶聯絡人_客戶資料" Association="Self.FK_客戶聯絡人_客戶資料">
             <End Role="客戶資料" EntitySet="客戶資料" />
             <End Role="客戶聯絡人" EntitySet="客戶聯絡人" />
           </AssociationSet>
           <EntitySet Name="V_CUSLIST" EntityType="客戶資料.MDFModel.V_CUSLIST" />
+          <EntitySet Name="客戶銀行資訊" EntityType="客戶資料.MDFModel.客戶銀行資訊" />
+          <AssociationSet Name="FK_客戶銀行資訊_客戶資料" Association="客戶資料.MDFModel.FK_客戶銀行資訊_客戶資料">
+            <End Role="客戶資料" EntitySet="客戶資料" />
+            <End Role="客戶銀行資訊" EntitySet="客戶銀行資訊" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="V_CUSLIST">
           <Key>
@@ -225,6 +203,31 @@
           <Property Name="CR" Type="Int32" />
           <Property Name="BR" Type="Int32" />
         </EntityType>
+        <EntityType Name="客戶銀行資訊">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="客戶Id" Type="Int32" Nullable="false" />
+          <Property Name="銀行名稱" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="銀行代碼" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="分行代碼" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="帳戶名稱" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="帳戶號碼" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="客戶資料" Relationship="客戶資料.MDFModel.FK_客戶銀行資訊_客戶資料" FromRole="客戶銀行資訊" ToRole="客戶資料" />
+        </EntityType>
+        <Association Name="FK_客戶銀行資訊_客戶資料">
+          <End Type="客戶資料.MDFModel.客戶資料" Role="客戶資料" Multiplicity="1" />
+          <End Type="客戶資料.MDFModel.客戶銀行資訊" Role="客戶銀行資訊" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="客戶資料">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="客戶銀行資訊">
+              <PropertyRef Name="客戶Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -255,19 +258,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="客戶銀行資訊">
-            <EntityTypeMapping TypeName="客戶資料.MDFModel.客戶銀行資訊">
-              <MappingFragment StoreEntitySet="客戶銀行資訊">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="客戶Id" ColumnName="客戶Id" />
-                <ScalarProperty Name="銀行名稱" ColumnName="銀行名稱" />
-                <ScalarProperty Name="銀行代碼" ColumnName="銀行代碼" />
-                <ScalarProperty Name="分行代碼" ColumnName="分行代碼" />
-                <ScalarProperty Name="帳戶名稱" ColumnName="帳戶名稱" />
-                <ScalarProperty Name="帳戶號碼" ColumnName="帳戶號碼" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="客戶聯絡人">
             <EntityTypeMapping TypeName="客戶資料.MDFModel.客戶聯絡人">
               <MappingFragment StoreEntitySet="客戶聯絡人">
@@ -293,6 +283,19 @@
                 <ScalarProperty Name="CNO" ColumnName="CNO" />
                 <ScalarProperty Name="CNAME" ColumnName="CNAME" />
                 <ScalarProperty Name="CID" ColumnName="CID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="客戶銀行資訊">
+            <EntityTypeMapping TypeName="客戶資料.MDFModel.客戶銀行資訊">
+              <MappingFragment StoreEntitySet="客戶銀行資訊">
+                <ScalarProperty Name="帳戶號碼" ColumnName="帳戶號碼" />
+                <ScalarProperty Name="帳戶名稱" ColumnName="帳戶名稱" />
+                <ScalarProperty Name="分行代碼" ColumnName="分行代碼" />
+                <ScalarProperty Name="銀行代碼" ColumnName="銀行代碼" />
+                <ScalarProperty Name="銀行名稱" ColumnName="銀行名稱" />
+                <ScalarProperty Name="客戶Id" ColumnName="客戶Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
