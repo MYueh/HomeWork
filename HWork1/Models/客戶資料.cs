@@ -39,7 +39,8 @@ namespace HWork1.Models
         [Required]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Email輸入格式有誤!!")]
         public string Email { get; set; }
-    
+        public bool 是否已刪除 { get; set; }
+
         public virtual ICollection<客戶聯絡人> 客戶聯絡人 { get; set; }
         public virtual ICollection<客戶銀行資訊> 客戶銀行資訊 { get; set; }
     }

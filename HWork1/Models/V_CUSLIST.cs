@@ -23,7 +23,7 @@ namespace HWork1.Models
         public string CTEL { get; set; }
         public string CFAX { get; set; }
         public string CADD { get; set; }
-        [Display(Name="聯絡人數量")]
+        [Display(Name = "聯絡人數量")]
         public Nullable<int> CR { get; set; }
         [Display(Name = "銀行帳戶數量")]
         public Nullable<int> BR { get; set; }
