@@ -26,6 +26,7 @@ namespace HWork1.Models
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Email輸入格式有誤!!")]
         public string Email { get; set; }
         [Required]
+        [RegularExpression(@"^\d{4}\-\d{6}$", ErrorMessage="手機輸入格式有誤，請重新輸入(ex:0911-111111)。")]
         public string 手機 { get; set; }
         [Required]
         public string 電話 { get; set; }

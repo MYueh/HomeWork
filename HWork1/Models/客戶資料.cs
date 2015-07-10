@@ -29,8 +29,10 @@ namespace HWork1.Models
         [StringLength(8), MinLength(8)]
         public string 統一編號 { get; set; }
         [Required]
+        [RegularExpression(@"^\(?\d{2}\)?[\s\-]?\d{4}\-?\d{4}$", ErrorMessage="電話格式輸入錯誤!")]
         public string 電話 { get; set; }
         [Required]
+        [RegularExpression(@"^\(?\d{2}\)?[\s\-]?\d{4}\-?\d{4}$", ErrorMessage = "電話格式輸入錯誤!")]
         public string 傳真 { get; set; }
         [Required]
         public string 地址 { get; set; }
