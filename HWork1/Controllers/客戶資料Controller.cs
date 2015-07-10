@@ -55,13 +55,19 @@ namespace HWork1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email")] 客戶資料 客戶資料)
         {
-            if (ModelState.IsValid)
+            if (db.客戶資料.Any(x=>x.Email == 客戶資料.Email))
             {
-                db.客戶資料.Add(客戶資料);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("Email", "Email輸入不可重覆");
             }
-
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    db.客戶資料.Add(客戶資料);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }            
             return View(客戶資料);
         }
 
@@ -87,11 +93,18 @@ namespace HWork1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email")] 客戶資料 客戶資料)
         {
-            if (ModelState.IsValid)
+            if (db.客戶資料.Any(x => x.Email == 客戶資料.Email))
             {
-                db.Entry(客戶資料).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("Email", "Email輸入不可重覆");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(客戶資料).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             return View(客戶資料);
         }

@@ -39,7 +39,8 @@ namespace HWork1.Controllers
         // GET: 客戶聯絡人/Create
         public ActionResult Create()
         {
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
+            
+            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");             
             return View();
         }
 
@@ -50,13 +51,20 @@ namespace HWork1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
-            if (ModelState.IsValid)
+            if (db.客戶聯絡人.Any(x=>x.Email == 客戶聯絡人.Email))
             {
-                db.客戶聯絡人.Add(客戶聯絡人);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("Email", "Email輸入不可重覆!!");
             }
-
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    db.客戶聯絡人.Add(客戶聯絡人);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            
             ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
         }
@@ -84,11 +92,18 @@ namespace HWork1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
-            if (ModelState.IsValid)
+            if (db.客戶聯絡人.Any(x=>x.Email == 客戶聯絡人.Email))
             {
-                db.Entry(客戶聯絡人).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("Email", "Email不可重覆");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(客戶聯絡人).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }                                
             }
             ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
