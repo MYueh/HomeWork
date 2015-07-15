@@ -11,28 +11,18 @@ namespace HWork1.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class 客戶聯絡人
     {
-        public int Id { get; set; }        
+        public int Id { get; set; }
         public int 客戶Id { get; set; }
-
-        [Required]
         public string 職稱 { get; set; }
-        [Required]
         public string 姓名 { get; set; }
-        [Required]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Email輸入格式有誤!!")]
         public string Email { get; set; }
-        [Required]
-        [RegularExpression(@"^\d{4}\-\d{6}$", ErrorMessage="手機輸入格式有誤，請重新輸入(ex:0911-111111)。")]
         public string 手機 { get; set; }
-        [Required]
-        [RegularExpression(@"^\(?\d{2}\)?[\s\-]?\d{4}\-?\d{4}$", ErrorMessage = "電話格式輸入錯誤!")]
         public string 電話 { get; set; }
         public bool 是否已刪除 { get; set; }
-
+    
         public virtual 客戶資料 客戶資料 { get; set; }
     }
 }

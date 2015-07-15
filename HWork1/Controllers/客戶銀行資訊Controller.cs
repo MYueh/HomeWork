@@ -17,7 +17,8 @@ namespace HWork1.Controllers
         // GET: 客戶銀行資訊
         public ActionResult Index()
         {
-            var 客戶銀行資訊 = db.客戶銀行資訊.Include(客 => 客.客戶資料).Where(客=>客.是否已刪除==false);
+            var 客戶銀行資訊 = db.客戶銀行資訊.Include(客 => 客.客戶資料)
+                .Where(客=>客.是否已刪除==false && 客.客戶資料.是否已刪除==false );
             return View(客戶銀行資訊.ToList());
         }
 

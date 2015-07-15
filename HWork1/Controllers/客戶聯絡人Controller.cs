@@ -17,7 +17,8 @@ namespace HWork1.Controllers
         // GET: 客戶聯絡人
         public ActionResult Index()
         {
-            var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料).Where(客=>客.是否已刪除==false);
+            var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料)
+                .Where(客=>客.是否已刪除==false && 客.客戶資料.是否已刪除==false);
             return View(客戶聯絡人.ToList());
         }
 
@@ -51,7 +52,7 @@ namespace HWork1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
-            if (db.客戶聯絡人.Any(x=>x.Email == 客戶聯絡人.Email))
+            if (db.客戶聯絡人.Any(x=>x.Email == 客戶聯絡人.Email && x.Id != 客戶聯絡人.客戶Id))
             {
                 ModelState.AddModelError("Email", "Email輸入不可重覆!!");
             }
@@ -63,8 +64,7 @@ namespace HWork1.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-            }
-            
+            }            
             ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
         }
@@ -92,7 +92,7 @@ namespace HWork1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
-            if (db.客戶聯絡人.Any(x=>x.Email == 客戶聯絡人.Email))
+            if (db.客戶聯絡人.Any(x=>x.Email == 客戶聯絡人.Email && x.客戶Id != 客戶聯絡人.客戶Id))
             {
                 ModelState.AddModelError("Email", "Email不可重覆");
             }

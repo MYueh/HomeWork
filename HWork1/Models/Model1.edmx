@@ -59,9 +59,6 @@
         <EntityType Name="V_CUSLIST">
           <Key>
             <PropertyRef Name="CID" />
-            
-            
-            
           </Key>
           <Property Name="CID" Type="int" Nullable="false" />
           <Property Name="CNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -72,6 +69,7 @@
           <Property Name="CADD" Type="nvarchar" MaxLength="100" />
           <Property Name="CR" Type="int" />
           <Property Name="BR" Type="int" />
+          <Property Name="是否已刪除" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_客戶銀行資訊_客戶資料">
           <End Role="客戶資料" Type="Self.客戶資料" Multiplicity="1" />
@@ -112,7 +110,8 @@
     [V_CUSLIST].[CFAX] AS [CFAX], 
     [V_CUSLIST].[CADD] AS [CADD], 
     [V_CUSLIST].[CR] AS [CR], 
-    [V_CUSLIST].[BR] AS [BR]
+    [V_CUSLIST].[BR] AS [BR], 
+    [V_CUSLIST].[是否已刪除] AS [是否已刪除]
     FROM [dbo].[V_CUSLIST] AS [V_CUSLIST]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_客戶銀行資訊_客戶資料" Association="Self.FK_客戶銀行資訊_客戶資料">
@@ -207,6 +206,7 @@
           <Property Name="CADD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CR" Type="Int32" />
           <Property Name="BR" Type="Int32" />
+          <Property Name="是否已刪除" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="客戶銀行資訊">
           <Key>
@@ -282,6 +282,7 @@
           <EntitySetMapping Name="V_CUSLIST">
             <EntityTypeMapping TypeName="客戶資料.MDFModel.V_CUSLIST">
               <MappingFragment StoreEntitySet="V_CUSLIST">
+                <ScalarProperty Name="是否已刪除" ColumnName="是否已刪除" />
                 <ScalarProperty Name="BR" ColumnName="BR" />
                 <ScalarProperty Name="CR" ColumnName="CR" />
                 <ScalarProperty Name="CADD" ColumnName="CADD" />

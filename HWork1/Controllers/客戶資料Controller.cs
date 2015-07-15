@@ -24,7 +24,8 @@ namespace HWork1.Controllers
         // 報表List
         public ActionResult CustomerList()
         {
-            var query = db.V_CUSLIST.OrderBy(x => x.CID).AsQueryable();
+            var query = db.V_CUSLIST.Where(x=>x.是否已刪除==false)                
+                .OrderBy(x => x.CID).AsQueryable();
             return View(query);
         }
 
@@ -94,7 +95,8 @@ namespace HWork1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email")] 客戶資料 客戶資料)
         {
-            if (db.客戶資料.Any(x => x.Email == 客戶資料.Email))
+            
+            if (db.客戶資料.Any(x => x.Email == 客戶資料.Email && x.Id != 客戶資料.Id ))
             {
                 ModelState.AddModelError("Email", "Email輸入不可重覆");
             }
@@ -134,8 +136,16 @@ namespace HWork1.Controllers
             //db.客戶資料.Remove(客戶資料);
             if (ModelState.IsValid)
             {
-                db.Entry(客戶資料).State = EntityState.Modified; 
-                客戶資料.是否已刪除 = true;                
+                db.Entry(客戶資料).State = EntityState.Modified;                 
+                客戶資料.是否已刪除 = true;
+                foreach (var 聯 in 客戶資料.客戶聯絡人)
+                {
+                    聯.是否已刪除 = true;
+                    foreach (var 銀 in 客戶資料.客戶銀行資訊)
+                    {
+                        銀.是否已刪除 = true;
+                    }
+                }                
             } 
             db.SaveChanges();
             return RedirectToAction("Index");
