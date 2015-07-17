@@ -3,10 +3,25 @@ namespace HWork1.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Data.SqlClient;
+    using System.Linq;
     
     [MetadataType(typeof(客戶聯絡人MetaData))]
-    public partial class 客戶聯絡人
+    public partial class 客戶聯絡人 : IValidatableObject
     {
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext )            
+        {
+            using (var db = new CusEntities())
+            {
+                var query = db.客戶聯絡人.SqlQuery(
+                  "select Id,Email from [客戶聯絡人] where Id <> @id and Email='@mail'",
+                   new SqlParameter("@id", Id), new SqlParameter("@mail", Email));
+                if (query != null)
+                {
+                    yield return new ValidationResult("Email不可重覆--模型驗証", new[] { "Email" });
+                }
+            }
+        }
     }
     
     public partial class 客戶聯絡人MetaData
