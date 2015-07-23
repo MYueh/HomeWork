@@ -12,11 +12,12 @@ namespace HWork1.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext )            
         {
             using (var db = new CusEntities())
-            {
-                var query = db.客戶聯絡人.SqlQuery(
-                  "select Id,Email from [客戶聯絡人] where Id <> @id and Email='@mail'",
-                   new SqlParameter("@id", Id), new SqlParameter("@mail", Email));
-                if (query != null)
+            { 
+                var query = db.Database.SqlQuery<客戶聯絡人>(
+                     "select * from [dbo].[客戶聯絡人] where Email=@p0 and Id <> @p1 ",
+                      Email, Id );
+
+                if (query.Count() > 0)  
                 {
                     yield return new ValidationResult("Email不可重覆--模型驗証", new[] { "Email" });
                 }
