@@ -17,6 +17,7 @@ namespace HWork1.Controllers
             //return Content("Done");
 
             System.IO.File.AppendAllText(@"D:\MyFilter.log", "#2 AFController.Index()\n");
+            throw new Exception("Index failed");
             return View();
         }
     }
