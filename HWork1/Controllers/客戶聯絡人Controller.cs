@@ -120,28 +120,17 @@ namespace HWork1.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
+        public ActionResult Edit(int id, FormCollection form)
         {
-            var data = repo.Email重覆判斷(客戶聯絡人.Email, 客戶聯絡人.Id);
-            //if (db.客戶聯絡人.Any(x=>x.Email == 客戶聯絡人.Email && x.客戶Id != 客戶聯絡人.Id))
-            if( data.Any())
-            {
-                ModelState.AddModelError("Email", "Email不可重覆");
+            var query = repo.Find(id);
+            if (TryUpdateModel<客戶聯絡人>(query))
+            { 
+                ((CusEntities)repo.UnitOfWork.Context).Entry(query).State = EntityState.Modified;
+                repo.UnitOfWork.Commit();
+                return RedirectToAction("Index");
             }
-            else
-            {
-                if (ModelState.IsValid)
-                {
-                    //db.Entry(客戶聯絡人).State = EntityState.Modified;
-                    //db.SaveChanges();
-                    ((CusEntities)repo.UnitOfWork.Context).Entry(客戶聯絡人).State = EntityState.Modified;
-                    repo.UnitOfWork.Commit();
-                    return RedirectToAction("Index");
-                }                                
-            }
-            //ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
-            ViewBag.客戶Id = new SelectList(repo_客.All(), "Id", "客戶名稱", 客戶聯絡人.客戶Id);
-            return View(客戶聯絡人);
+            ViewBag.客戶Id = new SelectList(repo_客.All(), "Id", "客戶名稱", query.客戶Id);
+            return View(query);
         }
 
         // GET: 客戶聯絡人/Delete/5
