@@ -26,10 +26,11 @@ namespace HWork1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(FormCollection form)
+        public ActionResult Index(List<Update姓名VM> data)
         {
-            var data = new List<Update姓名VM>();
-            if (TryUpdateModel<List<Update姓名VM>>(data, "data"))
+            //var data = new List<Update姓名VM>();
+            //if (TryUpdateModel<List<Update姓名VM>>(data, "data"))
+            if (ModelState.IsValid)
             {
                 foreach (var item in data)
                 {
@@ -40,6 +41,7 @@ namespace HWork1.Controllers
             }
             return View(repo.取得前五筆資料().ToList());
         }
+
         // GET: 客戶聯絡人/Details/5
         public ActionResult Details(int? id)
         {

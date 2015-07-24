@@ -49,7 +49,7 @@
                 </td>
                 <td>
                     @Html.EditorFor(modelItem => data[i].姓名)
-                    @Html.ValidationMessageFor(modelItem => data[i].姓名, "", new { @clss="text-danger" })
+                    @Html.ValidationMessageFor(modelItem => data[i].姓名, "", new { @class = "text-danger" })
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
@@ -73,7 +73,7 @@
         }
         <tr>
             <th></th>
-            <th><button type="submit">批次更新『姓名』</button></th>
+            <th><button type="submit">批次更新</button></th>
             <th></th>
             <th></th>
             <th></th>
@@ -81,4 +81,8 @@
             <th></th>
         </tr>
     </table>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
