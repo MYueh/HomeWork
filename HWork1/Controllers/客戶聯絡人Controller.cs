@@ -25,6 +25,21 @@ namespace HWork1.Controllers
             return View(客戶聯絡人);
         }
 
+        [HttpPost]
+        public ActionResult Index(FormCollection form)
+        {
+            var data = new List<Update姓名VM>();
+            if (TryUpdateModel<List<Update姓名VM>>(data, "data"))
+            {
+                foreach (var item in data)
+                {
+                    db.客戶聯絡人.Find(item.Id).姓名 = item.姓名;
+                }
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(repo.取得前五筆資料().ToList());
+        }
         // GET: 客戶聯絡人/Details/5
         public ActionResult Details(int? id)
         {

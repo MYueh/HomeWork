@@ -12,7 +12,10 @@ namespace HWork1.Models
         {            
             return base.All().Where(p=>p.是否已刪除==false);
         }
-
+        public IQueryable<客戶聯絡人> 取得前五筆資料()
+        {
+            return this.All().Take(5);
+        }
         public IQueryable<客戶聯絡人> Email重覆判斷(string mail)
         {
             return this.All().Where(p=>p.Email == mail );             
@@ -27,6 +30,7 @@ namespace HWork1.Models
             return this.All().FirstOrDefault(p => p.Id == id);
         }
 
+        
         public override void Delete(客戶聯絡人 entity)
         {
             entity.是否已刪除 = true;

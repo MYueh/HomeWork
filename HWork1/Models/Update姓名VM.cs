@@ -6,10 +6,10 @@ using System.Web;
 
 namespace HWork1.Models
 {
-    public class Update地址VM
+    public class Update姓名VM
     {
         public int Id { get; set; }
         [Required]
-        public string 地址 { get; set; }
+        public string 姓名 { get; set; }
     }
 }

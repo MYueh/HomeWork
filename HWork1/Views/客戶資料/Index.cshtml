@@ -13,6 +13,8 @@
 
 @using(Html.BeginForm())
 {  
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <table class="table">
     <tr>
         <th>
@@ -55,6 +57,7 @@
         </td>
         <td>
             @Html.EditorFor(modelItem => data[i].地址)
+            @Html.ValidationMessageFor(modelItem => data[i].地址, "", new { @class = "text-danger" })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
@@ -79,4 +82,8 @@
         <th></th>
     </tr>
 </table>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
