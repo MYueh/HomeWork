@@ -403,10 +403,10 @@
     <Content Include="Views\AR\AlertRedirect.cshtml" />
     <Content Include="Views\MB\Index.cshtml" />
     <Content Include="Views\MB\IndexResult.cshtml" />
+    <Content Include="Views\AF\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AF\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

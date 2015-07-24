@@ -13,8 +13,11 @@ namespace HWork1.Controllers
         [MyFilter]
         public ActionResult Index()
         {
-            System.IO.File.AppendAllText(@"D:\MyFilter.log", "#2\n");
-            return Content("Done");
+            //System.IO.File.AppendAllText(@"D:\MyFilter.log", "#2\n");
+            //return Content("Done");
+
+            System.IO.File.AppendAllText(@"D:\MyFilter.log", "#2 AFController.Index()\n");
+            return View();
         }
     }
 }
