@@ -405,6 +405,7 @@
     <Content Include="Views\MB\IndexResult.cshtml" />
     <Content Include="Views\AF\Index.cshtml" />
     <Content Include="Views\AF\Page1.cshtml" />
+    <Content Include="Views\AF\Page2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
