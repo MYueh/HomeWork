@@ -12,7 +12,10 @@ namespace HWork1.Controllers
         public ActionResult Index()    //ViewResult用法
         {
             string str = "Hello word!!";    
-            return View((object)str);       //string物件透過 @Model顯示
+            //return View((object)str);       //string物件透過 @Model顯示
+
+            ViewData.Model = str;    //ViewData.Model 傳遞強型別物件
+            return View();
         }
         public ActionResult PartialViewTest()  //PartialViewResutl 
         {
@@ -31,6 +34,8 @@ namespace HWork1.Controllers
         public ActionResult ContentTest3()   //View 回傳script並帶入ViewBag.msg
         {
             ViewBag.msg = "新增成功";
+
+            ViewData["msg"] = "新增成功";  
             return View("AlertRedirect");
         }
         //==========
@@ -44,6 +49,11 @@ namespace HWork1.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             var data = db.客戶資料.Take(5);
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RedirectTest()
+        {
+            return RedirectToAction("Index","Home");   //重新導向網頁
         }
     }
 }
