@@ -1,0 +1,24 @@
+﻿@model String
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<h2>@Model</h2>    @* return View((object)str) *@
+
+<hr/>
+<h3>載入圖片</h3>   @* 載入圖片位置、手動click下載 *@
+<a href="/AR/FileTest"><img src="/AR/FileTest" alt="" /></a>
+
+
+<hr/>
+<button onclick="load()">載入Json資料</button>
+<script>
+    function load()
+    {
+        $.getJSON("/AR/JsonTest", function (data) {
+            console.log(data);
+        });
+    }
+</script>

@@ -12,7 +12,10 @@ namespace HWork1.Controllers
         {
             return View();
         }
-
+        public ActionResult PartialViewTest()
+        {
+            return PartialView("MyPartial");
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
