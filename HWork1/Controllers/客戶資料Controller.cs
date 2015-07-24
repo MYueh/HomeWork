@@ -20,6 +20,17 @@ namespace HWork1.Controllers
             return View(query);                
         }
 
+        [HttpPost]
+        public ActionResult Index(Update地址VM[] data)
+        {
+            foreach (var item in data)
+            {
+                db.客戶資料.Find(item.Id).地址 = item.地址;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // 報表List
         public ActionResult CustomerList()
         {
