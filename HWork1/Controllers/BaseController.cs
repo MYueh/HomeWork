@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace HWork1.Controllers
 {
+    //[MyFilter]
     public class BaseController : Controller
     {
         // GET: Base
