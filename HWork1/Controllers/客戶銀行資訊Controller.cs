@@ -10,9 +10,8 @@ using HWork1.Models;
 
 namespace HWork1.Controllers
 {
-    public class 客戶銀行資訊Controller : Controller
+    public class 客戶銀行資訊Controller : BaseController
     {
-        private CusEntities db = new CusEntities();
 
         // GET: 客戶銀行資訊
         public ActionResult Index()

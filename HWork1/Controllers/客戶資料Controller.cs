@@ -10,10 +10,9 @@ using HWork1.Models;
 
 namespace HWork1.Controllers
 {
-    public class 客戶資料Controller : Controller
+    public class 客戶資料Controller : BaseController
     {
-        private CusEntities db = new CusEntities();
-       
+      
         // GET: 客戶資料
         public ActionResult Index()
         {   
@@ -74,8 +73,9 @@ namespace HWork1.Controllers
         }
 
         // GET: 客戶資料/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, string any)
         {
+            ViewBag.any = any;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

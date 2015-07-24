@@ -10,9 +10,9 @@ using HWork1.Models;
 
 namespace HWork1.Controllers
 {
-    public class 客戶聯絡人Controller : Controller
+    public class 客戶聯絡人Controller : BaseController
     {
-        //private CusEntities db = new CusEntities();
+        
         客戶聯絡人Repository repo = RepositoryHelper.Get客戶聯絡人Repository();
         客戶資料Repository repo_客 = RepositoryHelper.Get客戶資料Repository();
 
