@@ -8,6 +8,10 @@ using System.Web.Mvc;
 namespace HWork1.Controllers
 {
     //[MyFilter]
+#if !DEBUG
+    [Authorize]
+#endif
+
     public class BaseController : Controller
     {
         // GET: Base
