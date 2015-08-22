@@ -330,7 +330,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IRepository.EF6.cs</LastGenOutput>
     </Content>
-    <Content Include="README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
